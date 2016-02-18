@@ -1,4 +1,39 @@
 defmodule ExTest do
+  @moduledoc """
+  ExTest is a simple wrapper around ExUnit to support BBD (rspec) like syntax. It aims to be as lightweight as possible and keep the functionality of ExUnit.
+  Any options passed to ExTest will be passed on to `ExUnit.Case` (e.g. `async: true`).
+
+  Using `describe` and `it` might aid your test organization and keep your tests more structured. The `it` macro is a wrapper for `ExUnit.Case.test` and works identically,
+  however you may call multiple setups and nest these within `describes`.
+
+  ### Example
+
+  defmodule HelloWorldTest do
+    use ExTest #, async: true
+
+    describe "with some assigns" do
+      setup context do
+        {:ok, hello: :world}
+      end
+
+      describe "and some more assigns" do
+        setup context do
+          {:ok, Dict.put(context, foo: :bar)}
+        end
+
+        it "returns things from first context", context do
+          assert context[:hello] == :world
+        end
+
+        it "returns things from nested context", context do
+          assert context[:foo] == :bar
+        end
+      end
+    end
+  end
+"""
+
+
   defmacro __using__(options) do
     quote do
       use ExUnit.Case, unquote(options)
@@ -6,12 +41,21 @@ defmodule ExTest do
     end
   end
 
+
+  @doc """
+  Creates a ExUnit.Case.test using a alternative syntax. This macro wraps the test macro and names the case `it`.
+  ## Example
+      it "adds two numbers", do: (assert 1 + 1 = 2)
+  """
   defmacro it(name, options) do
     quote do
       test("it #{unquote name}", unquote(options))
     end
   end
 
+  @doc """
+  Creates a ExUnit.Case.test using a alternative syntax but with a context.
+  """
   defmacro it(name, context, options) do
     quote do
       test("it #{unquote name}", unquote(context), unquote(options))
@@ -27,6 +71,9 @@ defmodule ExTest do
     end
   end
 
+  @doc """
+  Creates a context for multiple setups and nesting `it`s. Please see the module doc for an example.
+  """
   defmacro describe(string, [do: block]) do
    described_module = string
           |> String.split(~r/\W/)
