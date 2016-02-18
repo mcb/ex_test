@@ -1,7 +1,7 @@
 defmodule ExTestTest do
   use ExTest
 
-  setup context do
+  setup do
     {:ok, outer: :setup }
   end
 
