@@ -28,6 +28,7 @@ defmodule ExTestTest do
 
     it "still asserts correctly with context", context do
       assert context[:inner] == :setup
+      assert context[:outer] == :setup
     end
   end
 end

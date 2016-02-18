@@ -1,7 +1,7 @@
 defmodule ExTest do
-  defmacro __using__(_) do
+  defmacro __using__(options) do
     quote do
-      use ExUnit.Case
+      use ExUnit.Case, unquote(options)
       import ExTest, except: [setup: 1, setup: 2]
     end
   end
@@ -27,21 +27,14 @@ defmodule ExTest do
     end
   end
 
-  defmacro setup([do: block]) do
-    quote do
-      raise "Calling setup without a context is unsupported"
-    end
-  end
-
   defmacro describe(string, [do: block]) do
-    module = string
+   described_module = string
           |> String.split(~r/\W/)
           |> Enum.map(&String.capitalize/1)
           |> Enum.join
-          |> List.wrap
-          |> Module.concat
 
     calling_module = __CALLER__.module
+    module         = Module.concat(calling_module, described_module)
 
     quote do
       defmodule unquote(module) do
