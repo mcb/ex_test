@@ -1,26 +1,50 @@
-# ExTest
+## ExTest
 
-Wrapper around ExUnit to support BBD (rspec) like syntax. It aims to be as lightweight as possible and keep the functionality of ExUnit.
-Any options passed to ExTest will be passed on to `ExUnit.Case` (e.g. `async: true`). It is right now in an alpha state, however it is improved over time as it is actively used within a bigger project.
+Simple wrapper around ExUnit to support BBD (rspec) like syntax. It aims to be as lightweight as possible and keep the functionality of ExUnit.
+Any options passed to ExTest will be passed on to `ExUnit.Case` (e.g. `async: true`).
+
+Using `describe` and `it` might aid your test organization and keep your tests more structured. The `it` macro is a wrapper for `ExUnit.Case.test` and works identically, however you may call multiple setups and nest these within `describes`.
+
+ExTest is right now in an alpha state, however it is improved over time as it is actively used within a bigger project.
+
+### Usage
+
+```elixir
+defmodule HelloWorldTest do
+  use ExTest #, async: true
+
+  describe "with some assigns" do
+    setup context do
+      {:ok, hello: :world}
+    end
+
+    describe "and some more assigns" do
+      setup context do
+        {:ok, Dict.put(context, foo: :bar)}
+      end
+
+      it "returns things from first context", context do
+        assert context[:hello] == :world
+      end
+
+      it "returns things from nested context", context do
+        assert context[:foo] == :bar
+      end
+    end
+  end
+end
+```
+
+### Installation
 
 
-## Pull requests
+Add `ex_test` to your list of dependencies in `mix.exs`:
+
+```elixir
+  def deps do
+    [{:ex_test, "~> 0.0.1", only: :test}]
+  end
+```
+
+### Pull requests
 Pull requests to improve this software are very welcome. However please note, that this should not be considered as a `rspec` clone, so please keep this in mind when developing features. Thanks!
-
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add ex_test to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:ex_test, "~> 0.0.1"}]
-        end
-
-  2. Ensure ex_test is started before your application:
-
-        def application do
-          [applications: [:ex_test]]
-        end
-
