@@ -30,5 +30,11 @@ defmodule ExTestTest do
       assert context[:inner] == :setup
       assert context[:outer] == :setup
     end
+
+    describe "nesting 'describe' inside" do
+      it "assterts correctly" do
+        assert 0 == 0
+      end
+    end
   end
 end
