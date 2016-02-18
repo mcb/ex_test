@@ -2,18 +2,18 @@ defmodule ExTestTest do
   use ExTest
 
   setup context do
-    {:ok, Dict.put( context, :outer, :setup) }
+    {:ok, outer: :setup }
   end
 
   test "test still works as before", context do
     assert context[:outer] == :setup
   end
 
-  it "'works as before just using 'it'" do
+  it "test works as before just using 'it'" do
     assert 0 == 0
   end
 
-  it "works as before just using 'it' with context", context do
+  it "test works as before just using 'it' with context", context do
     assert context[:outer] == :setup
   end
 
