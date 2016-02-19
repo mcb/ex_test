@@ -4,10 +4,10 @@ defmodule ExTest do
   Any options passed to ExTest will be passed on to `ExUnit.Case` (e.g. `async: true`).
 
   Using `describe` and `it` might aid your test organization and keep your tests more structured. The `it` macro is a wrapper for `ExUnit.Case.test` and works identically,
-  however you may call multiple setups and nest these within `describes`.
+  however you may call multiple setups and nest these within `describe`s.
 
   ### Example
-
+  ```
   defmodule HelloWorldTest do
     use ExTest #, async: true
 
@@ -31,7 +31,8 @@ defmodule ExTest do
       end
     end
   end
-"""
+  ```
+  """
 
 
   defmacro __using__(options) do
@@ -44,8 +45,12 @@ defmodule ExTest do
 
   @doc """
   Creates a ExUnit.Case.test using a alternative syntax. This macro wraps the test macro and names the case `it`.
+
   ## Example
-      it "adds two numbers", do: (assert 1 + 1 = 2)
+
+  ```elixir
+  it "adds two numbers", do: (assert 1 + 1 = 2)
+  ```
   """
   defmacro it(name, options) do
     quote do
