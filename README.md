@@ -35,6 +35,10 @@ defmodule HelloWorldTest do
 end
 ```
 
+### Build Status
+
+[![Build Status](https://semaphoreci.com/api/v1/mcb/ex_test/branches/master/badge.svg)](https://semaphoreci.com/mcb/ex_test)
+
 ### Installation
 
 
