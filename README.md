@@ -1,6 +1,6 @@
 ## ExTest
 
-Simple wrapper around ExUnit to support BBD (rspec) like syntax. It aims to be as lightweight as possible and keep the functionality of ExUnit.
+Simple wrapper around ExUnit to support BDD (rspec) like syntax. It aims to be as lightweight as possible and keep the functionality of ExUnit.
 Any options passed to ExTest will be passed on to `ExUnit.Case` (e.g. `async: true`).
 
 Using `describe` and `it` might aid your test organization and keep your tests more structured. The `it` macro is a wrapper for `ExUnit.Case.test` and works identically, however you may call multiple setups and nest these within `describes`.
