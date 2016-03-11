@@ -4,7 +4,7 @@ defmodule ExTest.Mixfile do
   def project do
     [
       app: :ex_test,
-      version: "0.0.1",
+      version: "0.0.2",
       elixir: "~> 1.0",
       source_url: "https://github.com/mcb/ex_test",
       description: "Wrapper around ExUnit to support BBD (rspec) like syntax",
@@ -30,6 +30,7 @@ defmodule ExTest.Mixfile do
 
   defp package do
     [
+      files: ["lib", "priv", "mix.exs", "README*", "readme*", "LICENSE*", "license*"],
       maintainers: ["Michael C. Beck"],
       licenses: ["MIT"],
       links: %{"github" => "https://github.com/mcb/ex_test"}
